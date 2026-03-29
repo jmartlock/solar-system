@@ -6,15 +6,20 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 
 app.get('/', async(req, res) => {
-    let apiKey = "7756a1e81f817c186cf57294e1c19b37b49c54b8f34e7c499ee0ce5cd86cd16e";
-	let url = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&featured=true&query=solar-system`;
+    let apiKey = "JLAYe05VYuNeImF4CW5WT_RCNqLtyD9HF_cXMqOS-78";
+    let url = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&featured=true&query=solar-system`;
     let response = await fetch(url);
+
+    if (!response.ok) {
+        return res.render("index", { image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Hubble_ultra_deep_field.jpg/1280px-Hubble_ultra_deep_field.jpg" });
+    }
+
     let data = await response.json();
     let randomImage = data.urls.full;
     res.render("index",{"image":randomImage})
 });
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
    console.log('server started');
 });
 
