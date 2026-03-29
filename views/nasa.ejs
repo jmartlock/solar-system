@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<%- include('partials/head.ejs') %>
+  <body>
+      <h1>The Solar System</h1>
+      <%- include('partials/nav.ejs') %>
+      <h2>NASA Astronomy Picture of the Day</h2>
+      <h3><%= apod.title %></h3>
+      <p><%= apod.date %></p>
+      <% if (apod.media_type === 'image') { %>
+          <img src="<%= apod.url %>" alt="<%= apod.title %>">
+      <% } else if (apod.media_type === 'video') { %>
+          <iframe src="<%= apod.url %>" frameborder="0" allowfullscreen></iframe>
+      <% } %>
+      <p><%= apod.explanation %></p>
+      <% if (apod.copyright) { %>
+          <p>© <%= apod.copyright %></p>
+      <% } %>
+  </body>
+  <%- include('partials/footer.ejs') %>
+</html>
